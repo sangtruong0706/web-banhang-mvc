@@ -32,5 +32,3 @@
             unset($_SESSION[$key]);
         }
     }
-
-?>

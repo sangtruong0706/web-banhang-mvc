@@ -14,5 +14,3 @@
             return new $fileName();
         }
     }
-
-?>

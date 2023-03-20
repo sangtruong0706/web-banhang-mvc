@@ -1,11 +1,11 @@
 <?php
 // define('BASE_URL', 'http://localhost/Mohinh_MVC');
 define('WEBSITE_TITLE', "Cây xanh Store");
-define('PROTOCOL','http');
+define('PROTOCOL', 'http');
 
 /*root and asset paths*/
 
-$path = str_replace("\\", "/",PROTOCOL ."://" . $_SERVER['SERVER_NAME'] . __DIR__  . "/");
+$path = str_replace("\\", "/", PROTOCOL . "://" . $_SERVER['SERVER_NAME'] . __DIR__  . "/");
 $path = str_replace($_SERVER['DOCUMENT_ROOT'], "", $path);
 
 define('ROOT', str_replace("app/config", "public", $path));
