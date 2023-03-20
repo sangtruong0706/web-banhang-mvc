@@ -1,0 +1,11 @@
+                            <?php
+                            if ($value['name'] == '' && $value['phone'] == '') {
+                            ?>
+                                <button type="submit" name="transport" class="btn btn-success" style="box-shadow: none;">Thêm vận chuyển</button>
+                            <?php
+                            } else {
+                            ?>
+                                <button type="submit" name="transport" class="btn btn-success" style="box-shadow: none;">Cập nhật vận chuyển</button>
+                            <?php
+                            }
+                            ?>
