@@ -33,4 +33,8 @@ class customerModel extends DModel
     public  function updateShip($table_ship, $data_update, $cond){
         return $this->db->update($table_ship, $data_update, $cond);
     }
+
+    public function insertVNPay($table_vnpay, $data_insert){
+        return $this->db->insert($table_vnpay, $data_insert);
+    }
 }

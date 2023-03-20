@@ -86,31 +86,31 @@
                                     <h4><b>Hình thức thanh toán</b></h4>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="tiền mặt" checked>
+                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="tienmat" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             Tiền mặt
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="chuyển khoản" checked>
+                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="chuyenkhoan" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             Chuyển khoản
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="mono" checked>
+                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="momo" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             Momo
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="VN-Pay" checked>
+                                        <input class="form-check-input" type="radio" name="payment" id="exampleRadios1" value="vnpay" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             VN-Pay
                                         </label>
                                     </div>
                                     <p style="float: left; color: tomato;">Tổng tiền cần thanh toán: <?= number_format($total, 0, ',', '.') . 'đ'  ?></p> <br>
-                                    <button type="submit" name="pay" class="btn btn-warning" style="box-shadow: none;">
+                                    <button type="submit" name="redirect" id="redirect" class="btn btn-warning" style="box-shadow: none;">
 
                                         Thanh toán ngay
                                     </button>
