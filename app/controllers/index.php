@@ -50,4 +50,23 @@ class index extends DController
         $this->load->view('user/contact');
         $this->load->view('user/footer');
     }
+    public function Search(){
+        $categoryModel = $this->load->model('categoryModel');
+        $postModel = $this->load->model('postModel');
+        $homeModel = $this->load->model('homeModel');
+        $table = 'tbl_category';
+        $tablePost = 'tbl_category_post';
+        $data['category'] = $categoryModel->categoryHome($table);
+        $data['category_post'] = $postModel->categoryPostHome($tablePost);
+        if(isset($_GET['search'])){
+            $key = $_GET['key_search'];
+        }
+        $tablePro = 'tbl_product';
+        $cond = "$tablePro.title_product LIKE '%$key%'";
+        $data['result_search'] = $homeModel->Search($tablePro, $cond);
+        $this->load->view('user/header', $data);
+        $this->load->view('user/search', $data);
+        $this->load->view('user/footer');
+
+    }
 }

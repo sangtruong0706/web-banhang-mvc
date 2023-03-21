@@ -42,9 +42,9 @@
                             <a href="<?= BASE_URL ?>/index"><img src="<?= ASSETS ?>/user/image/logohere.jpeg" width="250" height="100" alt="logohere.jpeg" /></a>
                         </div>
                         <nav class="menu_top">
-                            <form class="search_form" method="get" action="">
-                                <input class="searchTerm" name="search" placeholder="Nhập từ cần tìm..." />
-                                <button class="searchButton" type="submit">
+                            <form class="search_form" method="GET" action="<?= BASE_URL ?>/index/Search">
+                                <input class="searchTerm" name="key_search" placeholder="Nhập từ cần tìm..." />
+                                <button class="searchButton" type="submit" name="search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </form>
