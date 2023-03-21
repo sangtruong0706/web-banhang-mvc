@@ -401,7 +401,7 @@ class cart extends DController
         $data['category'] = $categoryModel->categoryHome($table);
         $data['category_post'] = $postModel->categoryPostHome($tablePost);
 
-        if (isset($_GET['vnp_Amount'])) {
+        if (isset($_GET['vnp_Amount'])){
             $vnp_Amount = $_GET['vnp_Amount'];
             $vnp_BankCode = $_GET['vnp_BankCode'];
             $vnp_BankTranNo = $_GET['vnp_BankTranNo'];
@@ -411,24 +411,25 @@ class cart extends DController
             $vnp_TransactionNo = $_GET['vnp_TransactionNo'];
             $vnp_CardType = $_GET['vnp_CardType'];
             $order_code = $_SESSION['order_code'];
+            $data_insert = array(
+                'vnp_amount' => $vnp_Amount,
+                'vnp_bankcode' => $vnp_BankCode,
+                'vnp_banktranno' => $vnp_BankTranNo,
+                'vnp_orderinfo' => $vnp_OrderInfo,
+                'vnp_paydate' => $vnp_PayDate,
+                'vnp_tmncode' => $vnp_TmnCode,
+                'vnp_transactionno' => $vnp_TransactionNo,
+                'vnp_cardtype' => $vnp_CardType,
+                'order_code' => $order_code
+            );
+            $result = $customerModel->insertVNPay($table_vnpay, $data_insert);
+            if ($result==1) {
+                echo '<span>Giao dịch VN Pay thành công!</span>';
+            } else {
+                echo '<span>Giao dịch VN Pay thất bại!</span>';
+            }
         }
-        $data_insert = array(
-            'vnp_amount' => $vnp_Amount,
-            'vnp_bankcode' => $vnp_BankCode,
-            'vnp_banktranno' => $vnp_BankTranNo,
-            'vnp_orderinfo' => $vnp_OrderInfo,
-            'vnp_paydate' => $vnp_PayDate,
-            'vnp_tmncode' => $vnp_TmnCode,
-            'vnp_transactionno' => $vnp_TransactionNo,
-            'vnp_cardtype' => $vnp_CardType,
-            'order_code' => $order_code
-        );
-        $result = $customerModel->insertVNPay($table_vnpay, $data_insert);
-        if ($result) {
-            echo '<span>Giao dịch VN Pay thành công!</span>';
-        } else {
-            echo '<span>Giao dịch VN Pay thất bại!</span>';
-        }
+        
 
 
         $this->load->view('user/header', $data);
