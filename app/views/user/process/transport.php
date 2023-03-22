@@ -37,7 +37,7 @@
                                                                                         } else {
                                                                                             echo '';
                                                                                         } ?>">Thanh toán</a><span> </div>
-                        <div class="step"> <span><a href="<?= BASE_URL ?>/cart/detailCart">Chi tiết đơn hàng</a><span> </div>
+                        <div class="step"> <span><a href="<?=BASE_URL?>/cart/historyCart/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Lịch sử mua hàng</a><span> </div>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
                     </div>
 
                 <?php
-                } else if (isset($_SESSION['customer']) && isset($_SESSION['shopping_cart'])) {
+                } else if (isset($_SESSION['customer']) && isset($_SESSION['shopping_cart']) && empty($info_ship)) {
                 ?>
                     <form action="<?= BASE_URL ?>/cart/handlingShipping/<?php if (isset($_SESSION['id_customer'])) {
                                                                             echo $_SESSION['id_customer'];
@@ -283,9 +283,8 @@
                             </table>
                         </div>
                     </div>
-
                 <?php
-                }
+                }else{echo "Bạn hãy mua một vài sản phẩm nhé!";}
                 ?>
             </div>
             <div class="clear"></div>

@@ -130,6 +130,7 @@
                                     if (Session::get('customer')) {
                                     ?>
                                         <li class=''><a href="<?= BASE_URL ?>/customer/logout">Đăng xuất</a></li>
+                                        <li class=''><a href="<?= BASE_URL ?>/cart/historyCart/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Lịch sử đơn hàng</a></li>
                                     <?php
                                     } else {
                                     ?>

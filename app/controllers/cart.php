@@ -21,6 +21,11 @@ class cart extends DController
         $tablePost = 'tbl_category_post';
         $data['category'] = $categoryModel->categoryHome($table);
         $data['category_post'] = $postModel->categoryPostHome($tablePost);
+        // include_once(DIR."/public_func.php");
+        // $commonBlock[] = new commonBlock();
+        // $data['category'] = $commonBlock;
+        // $commonBlock['category_post'] = new commonBlock();
+
         $this->load->view('user/header', $data);
         // $this->load->view('user/slider');      
         $this->load->view('user/cart');
@@ -122,7 +127,11 @@ class cart extends DController
                 unset($_SESSION['shopping_cart']);
             }
             if ($result_order_detail == 1) {
+                echo "<script>return alert('thanh toán thành công')</script>";
+                
                 header("Location:" . BASE_URL . "/cart/thankYou");
+            }else{
+                $data['message'] = "Thanh toán thất bại";
             }
         } elseif ($order_payment == 'vnpay') {
             //config
@@ -373,20 +382,7 @@ class cart extends DController
         $this->load->view('user/footer');
     }
 
-    public function detailCart()
-    {
 
-        $categoryModel = $this->load->model('categoryModel');
-        $postModel = $this->load->model('postModel');
-        $table = 'tbl_category';
-        $tablePost = 'tbl_category_post';
-        $data['category'] = $categoryModel->categoryHome($table);
-        $data['category_post'] = $postModel->categoryPostHome($tablePost);
-        $this->load->view('user/header', $data);
-        // $this->load->view('user/slider');      
-        $this->load->view('user/process/detailCart');
-        $this->load->view('user/footer');
-    }
     public function thankYou()
     {
 
@@ -401,7 +397,7 @@ class cart extends DController
         $data['category'] = $categoryModel->categoryHome($table);
         $data['category_post'] = $postModel->categoryPostHome($tablePost);
 
-        if (isset($_GET['vnp_Amount'])){
+        if (isset($_GET['vnp_Amount'])) {
             $vnp_Amount = $_GET['vnp_Amount'];
             $vnp_BankCode = $_GET['vnp_BankCode'];
             $vnp_BankTranNo = $_GET['vnp_BankTranNo'];
@@ -423,18 +419,93 @@ class cart extends DController
                 'order_code' => $order_code
             );
             $result = $customerModel->insertVNPay($table_vnpay, $data_insert);
-            if ($result==1) {
-                echo '<span>Giao dịch VN Pay thành công!</span>';
+            if ($result == 1) {
+                $data['message'] = "Thanh toán thành công";
             } else {
-                echo '<span>Giao dịch VN Pay thất bại!</span>';
+                $data['message'] = "Thanh toán thất bại";
             }
         }
-        
+
 
 
         $this->load->view('user/header', $data);
         // $this->load->view('user/slider');      
-        $this->load->view('user/process/thankYou');
+        $this->load->view('user/process/thankYou', $data);
+        $this->load->view('user/footer');
+    }
+
+    public function historyCart($id_customer)
+    {
+        $categoryModel = $this->load->model('categoryModel');
+        $postModel = $this->load->model('postModel');
+        $customerModel = $this->load->model('customerModel');
+
+        $table = 'tbl_category';
+        $tablePost = 'tbl_category_post';
+
+
+        $data['category'] = $categoryModel->categoryHome($table);
+        $data['category_post'] = $postModel->categoryPostHome($tablePost);
+
+        $table_order = 'tbl_order';
+        $cond = " $table_order.order_shipping = '$id_customer'";
+        $data['history_cart'] = $customerModel->listHistoryCart($table_order, $cond);
+
+        $this->load->view('user/header', $data);
+        // $this->load->view('user/slider');      
+        $this->load->view('user/process/historyCart', $data);
+        $this->load->view('user/footer');
+    }
+    public function detailPayment($id_customer){
+        $categoryModel = $this->load->model('categoryModel');
+        $postModel = $this->load->model('postModel');
+        $customerModel = $this->load->model('customerModel');
+
+        $table = 'tbl_category';
+        $tablePost = 'tbl_category_post';
+
+
+        $data['category'] = $categoryModel->categoryHome($table);
+        $data['category_post'] = $postModel->categoryPostHome($tablePost);
+
+        $table_order = 'tbl_order';
+        $cond = " $table_order.order_shipping = '$id_customer'";
+        $data['history_cart'] = $customerModel->listHistoryCart($table_order, $cond);
+
+        foreach ($data['history_cart'] as $key => $value) {
+            $order_code =  $value['order_code'];
+        }
+        $table_vnpay = 'tbl_vnpay';
+        $cond_vnpay = "$table_vnpay.order_code = '$order_code'";
+        $data['detail_vnpay'] = $customerModel->detailVNPay($table_vnpay, $cond_vnpay);
+
+        $this->load->view('user/header', $data);
+        // $this->load->view('user/slider');      
+        $this->load->view('user/process/detailPayment', $data);
+        $this->load->view('user/footer');
+    }
+    public function detailCart($order_code)
+    {
+        $customerModel = $this->load->model('customerModel');
+        $categoryModel = $this->load->model('categoryModel');
+        $postModel = $this->load->model('postModel');
+        $table = 'tbl_category';
+        $tablePost = 'tbl_category_post';
+        $data['category'] = $categoryModel->categoryHome($table);
+        $data['category_post'] = $postModel->categoryPostHome($tablePost);
+
+        $table_order_detail = 'tbl_order_detail';
+        $table_product = 'tbl_product';
+        // $tbl_shipping = 'tbl_shipping';
+        $cond = "$table_product.id_product=$table_order_detail.product_id AND $table_order_detail.order_code='$order_code' ";
+        $cond_info = "$table_order_detail.order_code='$order_code' LIMIT 1";
+
+        $data['cart_detail'] =  $customerModel->listCartDetail($table_product, $table_order_detail, $cond);
+        $data['cart_info'] =  $customerModel->infoCustomer($table_order_detail, $cond_info);
+
+
+        $this->load->view('user/header', $data);
+        $this->load->view('user/process/detailCart', $data);
         $this->load->view('user/footer');
     }
 }

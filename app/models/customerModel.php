@@ -37,4 +37,21 @@ class customerModel extends DModel
     public function insertVNPay($table_vnpay, $data_insert){
         return $this->db->insert($table_vnpay, $data_insert);
     }
+
+    public function listHistoryCart($table_order, $cond){
+        $sql = "SELECT * FROM $table_order WHERE $cond ORDER BY order_id DESC ";
+        return $this->db->select($sql);
+    }
+    public function listCartDetail($table_product, $table_order_detail, $cond){
+        $sql = "SELECT * FROM $table_order_detail, $table_product WHERE $cond";
+        return $this->db->select($sql);
+    }
+    public function infoCustomer($table_order_detail, $cond_info){
+        $sql = "SELECT * FROM $table_order_detail WHERE $cond_info";
+        return $this->db->select($sql);
+    }
+    public function detailVNPay($table_vnpay, $cond_vnpay){
+        $sql = "SELECT * FROM $table_vnpay WHERE $cond_vnpay";
+        return $this->db->select($sql);
+    }
 }

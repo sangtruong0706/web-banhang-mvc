@@ -1,162 +1,97 @@
 <section>
     <div class="bg_in">
-        <div class="content_page cart_page">
-            <div class="breadcrumbs">
-                <ol itemscope itemtype="http://schema.org/BreadcrumbList">
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" href="<?= BASE_URL ?>">
-                            <span itemprop="name">Trang chủ</span></a>
-                        <meta itemprop="position" content="1" />
-                    </li>
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <span itemprop="item">
-                            <strong itemprop="name">
-                                Giỏ hàng
-                            </strong>
-                        </span>
-                        <meta itemprop="position" content="2" />
-                    </li>
-                </ol>
-            </div>
-            <div class="box-title">
-                <div class="container" style="margin: 15px 0;">
-                    <!-- Responsive Arrow Progress Bar -->
-                    <div class="arrow-steps clearfix">
-                        <div class="step current"> <span> <a href="<?=BASE_URL?>/cart/cart">Giỏ hàng</a></span> </div>
-                        <div class="step current"> <span><a href="<?=BASE_URL?>/cart/transport">Vận chuyển</a></span> </div>
-                        <div class="step current"> <span><a href="<?=BASE_URL?>/cart/infoPay">Thanh toán</a><span> </div>
-                        <div class="step current"> <span><a href="#">Chi tiết đơn hàng</a><span> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
 
-            <div class="box-title">
-                <div class="title-bar">
-                    <h1>Giỏ hàng của: <?php
-                                        if (isset($_SESSION['customer'])) {
-                                            echo $_SESSION['customer_name'];
-                                            echo $_SESSION['id_customer'];
-                                        }
-                                        ?></h1>
-                </div>
-            </div>
-            <?php
-            if (!empty($_GET['msg'])) {
-                $msg = unserialize(urldecode($_GET['msg']));
-                foreach ($msg as $key => $value) {
-                    echo '<span style="color:blue; font-weight:bold;" >' . $value . '</span>';
-                }
-            }
-            ?>
-            <div class="content_text">
-                <div class="container_table">
-                    <table class="table table-hover table-condensed">
-                        <thead>
-                            <tr class="tr tr_first">
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá</th>
-                                <th style="width:100px;">Số lượng</th>
-                                <th>Thành tiền</th>
-                                <th style="width:50px; text-align:center;"></th>
+        <div class="pagetitle">
+            <h1>Chi tiết đơn hàng</h1>
+        </div><!-- End Page Title -->
+        <div class="card" style="font-size: 18px;">
+            <div class="card-body">
+                <h5 class="card-title">Thông tin khách hàng</h5>
+
+                <!-- Default Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $stt = 1;
+                        foreach ($cart_info as $key => $info) {
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $stt ?></th>
+                                <td><?= $info['name'] ?></td>
+                                <td><?= $info['phone_number'] ?></td>
+                                <td><?= $info['address'] ?></td>
+                                <td><?= $info['email'] ?></td>
+                                <td><?= $info['content'] ?></td>
+
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if (isset($_SESSION['shopping_cart'])) {
-                            ?>
-                                <form action="<?= BASE_URL ?>/cart/updateCart" method="POST">
-                                    <?php
-                                    $total = 0;
-                                    $cart = $_SESSION['shopping_cart'];
-                                    foreach ($cart as $key => $value) {
-                                        $sub_total = $value['product_price'] * $value['product_quantity'];
-                                        $total += $sub_total;
-                                    ?>
-                                        <tr class="tr">
-                                            <td data-th="Hình ảnh">
-                                                <div class="col_table_image col_table_hidden-xs"><img src="<?= ROOT ?>/uploads/product/<?= $value['product_image'] ?>" class="img-responsive" /></div>
-                                            </td>
-                                            <td data-th="Sản phẩm">
-                                                <div class="col_table_name">
-                                                    <h4 class="nomargin"><?= $value['product_title'] ?></h4>
-                                                </div>
-                                            </td>
-                                            <td data-th="Giá"><span class="color_red font_money"><?= number_format($value['product_price'], 0, ',', '.') . 'đ' ?></span></td>
+                        <?php
+                            $stt++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <!-- End Default Table Example -->
+            </div>
+        </div>
+        <div class="card" style="font-size: 18px;">
+            <div class="card-body">
+                <h5 class="card-title">Chi tiết đơn hàng</h5>
 
-                                            <td data-th="Số lượng">
-                                                <div class="clear margintop5" style="display: flex; justify-content: center; align-items: center;">
-
-                                                    <button min="1" style="box-shadow: none; margin-bottom: 5px;" class="btn btn-sm btn-warning" type="submit" value="<?= $value['product_quantity'] ?>" name="qty_plus[<?= $value['product_id'] ?>]"><i class="fa-solid fa-plus"></i></button>
-                                                    <span style="margin: 0 5px;"><?= $value['product_quantity'] ?></span>
-                                                    <button min="1" style="box-shadow: none; margin-bottom: 5px;" class="btn btn-sm btn-warning" type="submit" value="<?= $value['product_quantity'] ?>" name="qty_minus[<?= $value['product_id'] ?>]"><i class="fa-solid fa-minus"></i></button>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </td>
-                                            <td data-th="Thành tiền" class="text_center"><span class="color_red font_money"><?= number_format($sub_total, 0, ',', '.') . 'đ' ?></span></td>
-
-                                            <td class="actions aligncenter" data-th="">
-
-                                                <button style="box-shadow: none; margin-bottom: 5px;" class="btn btn-sm btn-warning" type="submit" value="<?= $value['product_id'] ?>" name="delete_cart">Xóa</button>
-
-
-
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </form>
-                                <tr>
-                                    <td colspan="7" class="textright_text">
-                                        <div class="sum_price_all">
-                                            <span class="text_price">Tổng tiền thanh toán</span>:
-                                            <span class="text_price color_red"><?= number_format($total, 0, ',', '.') . 'đ' ?></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <?php
-                                        if (isset($_SESSION['customer'])) {
-                                        ?>
-                                            <a href="">Đặt hàng</a>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <a href="<?= BASE_URL ?>/customer/login">Đăng nhập để đặt hàng</a>
-                                        <?php
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                            <?php
-                            } else {
-                            ?>
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="sum_price_all">
-                                            <span class="text_price">Giỏ hàng trống!!</span> <br>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                        <tfoot>
-                            <tr class="tr_last">
-                                <td colspan="7">
-                                    <a href="<?= BASE_URL ?>" class="btn_df btn_table floatleft"><i class="fa fa-long-arrow-left"></i> Tiếp tục mua hàng</a>
-                                    <div class="clear"></div>
-                                </td>
+                <!-- Default Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Hình ảnh</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $stt = 1;
+                        $total = 0;
+                        foreach ($cart_detail as $key => $ord) {
+                            $total += $ord['product_quantity'] * $ord['price_product'];
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $stt ?></th>
+                                <td><?= $ord['title_product'] ?></td>
+                                <td><img width="100px" height="100px" src="<?= ROOT . "uploads/product/" . $ord['img_product'] ?>" alt="Chưa cập nhật ảnh"></td>
+                                <td><?= $ord['product_quantity'] ?></td>
+                                <td><?= number_format($ord['price_product'], 0, ',', '.') . 'đ' ?></td>
+                                <td><?= number_format($ord['product_quantity'] * $ord['price_product'], 0, ',', '.') . 'đ' ?></td>
                             </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                        <?php
+                            $stt++;
+                        }
+                        ?>
+                        <form action="<?= BASE_URL ?>/order/orderConfirm/<?= $ord['order_code'] ?>" method="POST">
+                            <tr>
+                                <td style="text-align: right;" colspan="6">Tổng tiền: <?= number_format($total, 0, ',', '.') . 'đ' ?> </td>
+                                <!-- <td>
+                                <div class="text-center" style="margin-top: 0px;">
+                                    <button type="submit" name="update_order" class="btn btn-primary">Xử lý đơn hàng</button>
+                                </div>
+                            </td> -->
+                            </tr>
+                        </form>
+                    </tbody>
+                </table>
+                <!-- End Default Table Example -->
             </div>
         </div>
     </div>
 </section>
-<div class="clear"></div>

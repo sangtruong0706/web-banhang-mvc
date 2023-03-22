@@ -28,7 +28,7 @@
                         ?>
                             <div class="step"> <span><a href="<?=BASE_URL?>/cart/transport/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Vận chuyển</a></span> </div>
                             <div class="step"> <span><a href="<?=BASE_URL?>/cart/infoPay/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Thanh toán</a><span> </div>
-                            <div class="step"> <span><a href="<?=BASE_URL?>/cart/detailCart">Chi tiết đơn hàng</a><span> </div>
+                            <div class="step"> <span><a href="<?=BASE_URL?>/cart/historyCart/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Lịch sử mua hàng</a><span> </div>
                         <?php
                         }
                         ?>
