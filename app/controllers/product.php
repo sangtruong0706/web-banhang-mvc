@@ -14,8 +14,11 @@
             $this->load->view('admin/header');
 
             $table = 'tbl_category';
+            $tablePro = 'tbl_product';
             $categoryModel = $this->load->model('categoryModel'); //lấy dử liệu từ category truyền vào select
+            $productModel = $this->load->model('productModel');
             $data['category'] = $categoryModel->category($table);
+            $data['product'] = $productModel->product_list($tablePro);
 
             $this->load->view('admin/product/addProduct', $data);
             $this->load->view('admin/footer');

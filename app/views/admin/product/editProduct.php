@@ -48,10 +48,15 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inputNumber" class="col-sm-2 col-form-label">Hình ảnh</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="file" id="formFile" name="img_product">
+                                    <div class="col-sm mb-3">
+                                        <label for="inputNumber" class="col-sm-2 col-form-label">Hình ảnh</label>
+                                        <div class="col-sm-10">
+                                            <label for="formFile" class="col-sm-2 col-form-label"></label>
+                                            <input class="form-control" type="file" id="formFile" name="img_product">
+                                        </div>
+
                                     </div>
+
                                     <div class="row mb-3">
                                         <label for="inputNumber" class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
@@ -59,6 +64,13 @@
                                                 <img width="100px" height="100px" src="<?= ROOT . "uploads/product/" . $value['img_product'] ?>" alt="Chưa cập nhật ảnh">
                                             </p>
                                         </div>
+                                    </div>
+
+                                    <div class="col-sm mb-3">
+                                        <label for="inputNumber" class="col-sm-2 col-form-label"></label>
+                                        <img id="hinh" src="<?= ROOT . "uploads/product/" . $value['img_product'] ?>" alt="Profile" width="250" height="250" onerror=" this.onerror=null; this.src='<?= ASSETS ?>admin/assets/img/house.jpg';">
+                                        <a href="#" id="remove" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+
                                     </div>
                                 </div>
 
@@ -126,3 +138,34 @@
     </section>
 
 </main><!-- End #main -->
+<script>
+    var i = document.getElementById('formFile');
+    var y = document.getElementById('hinh');
+    var u = "<?php if (isset($data['productID'])) {
+                    foreach ($productID as $key => $value) {
+                        echo $value['img_product'];
+                    }
+                } ?>";
+    var v = "<?= ASSETS ?>admin/assets/img/house.jpg";
+
+    if (u != "") {
+        v = "<?= ROOT ?>uploads/product/<?php if (isset($data['productID'])) {
+                                            foreach ($productID as $key => $value) {
+                                                echo $value['img_product'];
+                                            }
+                                        } else {
+                                            echo "";
+                                        } ?>";
+    }
+
+    i.onchange = e => {
+        const [file] = i.files;
+        if (file)
+            y.src = URL.createObjectURL(file);
+    }
+
+    document.getElementById("remove").onclick = e => {
+        i.value = "";
+        y.src = v;
+    }
+</script>

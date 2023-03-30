@@ -72,12 +72,16 @@ class userproduct extends DController
         // $this->load->view('user/slider');  
         $categoryModel = $this->load->model('categoryModel');
         $postModel = $this->load->model('postModel');
+
         $tableCate = 'tbl_category';
         $tablePro = 'tbl_product';
         $tablePost = 'tbl_category_post';
+
         $data['category'] = $categoryModel->categoryHome($tableCate);
         $data['category_post'] = $postModel->categoryPostHome($tablePost);
         $data['category_id'] = $categoryModel->categoryIDHome($tableCate, $tablePro, $id);
+
+        
         $this->load->view('user/header', $data);
         $this->load->view('user/categoryProduct', $data);
         $this->load->view('user/footer');

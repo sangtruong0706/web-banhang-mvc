@@ -50,12 +50,6 @@ include_once('system/libs/Functions.php');
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button style="display: flex;justify-content: center;align-items: center;margin-top: 7px;" type="submit" title="Search"><i class="bi bi-search fs-5"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -178,7 +172,7 @@ include_once('system/libs/Functions.php');
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Bài viết</span><i class="bi bi-chevron-down ms-auto"></i>
+         <i class="bi bi-mailbox"></i></i><span>Bài viết</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -207,23 +201,6 @@ include_once('system/libs/Functions.php');
 
         </ul>
       </li><!-- End Đơn hàng-->
-
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->

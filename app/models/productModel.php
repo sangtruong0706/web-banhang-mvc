@@ -18,6 +18,10 @@
             $sql = "SELECT * FROM $table WHERE $cond";
             return $this->db->select($sql);
         }
+        public function product_list($tablePro){
+            $sql = "SELECT * FROM $tablePro";
+            return $this->db->select($sql);
+        }
 
         public function insertProduct($table, $data){
             return $this->db->insert($table, $data);

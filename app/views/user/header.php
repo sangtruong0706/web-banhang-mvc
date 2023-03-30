@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>/user/css/style.css">
     <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>/user/css/process.css">
+    <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>/user/css/search_style.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>/user/css/product.css">
     <link rel="stylesheet" type="text/css" href="<?= ASSETS ?>/user/css/owl.carousel.min.css">
@@ -43,10 +44,15 @@
                         </div>
                         <nav class="menu_top">
                             <form class="search_form" method="GET" action="<?= BASE_URL ?>/index/Search">
-                                <input class="searchTerm" name="key_search" placeholder="Nhập từ cần tìm..." />
+                                <div class="src-box">
+                                    <input type="text" placeholder=" " name="key_search" />
+                                    <button type="reset"></button>
+                                    <input type="submit" name="search">
+                                </div>
+                                <!-- <input class="searchTerm" name="key_search" placeholder="Nhập từ cần tìm..." />
                                 <button class="searchButton" type="submit" name="search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                </button>
+                                </button> -->
                             </form>
                         </nav>
                         <div class="cart_wrapper">
@@ -105,7 +111,7 @@
                                 <ul>
                                     <li class='active'><a href="<?= BASE_URL ?>/index">Trang chủ</a></li>
                                     <li class=''><a href="<?= BASE_URL ?>/index/contact">Giới thiệu</a></li>
-                                   
+
                                     <li class=''><a href="<?= BASE_URL ?>/userproduct/paging/1">Sản phẩm</a></li>
                                     <li class=''>
                                         <a href="<?= BASE_URL ?>/userpost">Tin tức</a>
@@ -130,7 +136,11 @@
                                     if (Session::get('customer')) {
                                     ?>
                                         <li class=''><a href="<?= BASE_URL ?>/customer/logout">Đăng xuất</a></li>
-                                        <li class=''><a href="<?= BASE_URL ?>/cart/historyCart/<?php if(isset($_SESSION['id_customer'])){echo $_SESSION['id_customer'];}else{echo '';} ?>">Lịch sử đơn hàng</a></li>
+                                        <li class=''><a href="<?= BASE_URL ?>/cart/historyCart/<?php if (isset($_SESSION['id_customer'])) {
+                                                                                                    echo $_SESSION['id_customer'];
+                                                                                                } else {
+                                                                                                    echo '';
+                                                                                                } ?>">Lịch sử đơn hàng</a></li>
                                     <?php
                                     } else {
                                     ?>

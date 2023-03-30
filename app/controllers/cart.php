@@ -127,11 +127,12 @@ class cart extends DController
                 unset($_SESSION['shopping_cart']);
             }
             if ($result_order_detail == 1) {
-                echo "<script>return alert('thanh toán thành công')</script>";
-                
-                header("Location:" . BASE_URL . "/cart/thankYou");
-            }else{
-                $data['message'] = "Thanh toán thất bại";
+                $message['msg'] = " Thanh toán thành công!";
+
+                header("Location:" . BASE_URL . "/cart/thankYou?msg=" . urldecode(serialize($message)));
+            } else {
+                $message['msg'] = " Thanh toán thất bại!";
+                header("Location:" . BASE_URL . "/cart/thankYou?msg=" . urldecode(serialize($message)));
             }
         } elseif ($order_payment == 'vnpay') {
             //config
@@ -268,8 +269,8 @@ class cart extends DController
                         if ($value['product_id'] == $key) {
                             $_SESSION['shopping_cart'][$session]['product_quantity'] =  $qty_minus - 1;
                         }
-                        if ($_SESSION['shopping_cart'][$session]['product_quantity'] < 0) {
-                            $_SESSION['shopping_cart'][$session]['product_quantity'] = 0;
+                        if ($_SESSION['shopping_cart'][$session]['product_quantity'] < 1) {
+                            $_SESSION['shopping_cart'][$session]['product_quantity'] = 1;
                         }
                     }
                 }
@@ -456,7 +457,8 @@ class cart extends DController
         $this->load->view('user/process/historyCart', $data);
         $this->load->view('user/footer');
     }
-    public function detailPayment($id_customer){
+    public function detailPayment($id_customer)
+    {
         $categoryModel = $this->load->model('categoryModel');
         $postModel = $this->load->model('postModel');
         $customerModel = $this->load->model('customerModel');

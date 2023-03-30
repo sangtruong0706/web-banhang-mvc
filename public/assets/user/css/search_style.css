@@ -1,0 +1,90 @@
+html,
+body {
+  font-family: raleway, sans-serif;
+  /* width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0; */
+  /* background: #1a1e23; */
+}
+/* body {
+    background: #1a1e23;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+} */
+.src-box {
+  font-size: 20px;
+  border: solid 0.25em #ffbf00;
+  display: inline-block;
+  position: relative;
+  border-radius: 2.5em;
+}
+.src-box input[type="text"] {
+  font-family: inherit;
+  font-weight: bold;
+  color: #000;
+  width: 2.5em;
+  height: 2.5em;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 2.5em;
+  transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 150ms;
+}
+.src-box input[type="text"]:focus {
+  outline: none;
+}
+.src-box input[type="text"]:focus,
+.src-box input[type="text"]:not(:placeholder-shown) {
+  width: 18em;
+  transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.src-box input[type="text"]:focus + button[type="reset"],
+.src-box input[type="text"]:not(:placeholder-shown) + button[type="reset"] {
+  transform: rotate(-45deg) translateY(0);
+  transition: transform 150ms ease-out 800ms;
+}
+.src-box input[type="text"]:focus + button[type="reset"]::after,
+.src-box
+  input[type="text"]:not(:placeholder-shown)
+  + button[type="reset"]::after {
+  opacity: 1;
+  transition: top 150ms ease-out 950ms, right 150ms ease-out 950ms,
+    opacity 150ms ease 950ms;
+}
+.src-box button[type="reset"] {
+  background-color: transparent;
+  width: 1.4em;
+  height: 1.4em;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0.55em;
+  right: 0.55em;
+  transform: rotate(-45deg) translateY(2.2em);
+  transition: transform 150ms ease-out 150ms;
+}
+.src-box button[type="reset"]::before,
+.src-box button[type="reset"]::after {
+  content: "";
+  background-color: #ffbf00;
+  width: 0.3em;
+  height: 1.4em;
+  border-radius: 10px;
+  position: absolute;
+}
+.src-box button[type="reset"]::after {
+  transform: rotate(90deg);
+  opacity: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+.src-box input[type="submit"] {
+  display: none;
+}
